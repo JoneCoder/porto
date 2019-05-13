@@ -85,15 +85,18 @@
                                 <li><a href="#">MY WISHLIST </a></li>
                                 <li><a href="blog.php">BLOG</a></li>
                                 <li><a href="contact.php">Contact</a></li>
-                                @guest
-                                    <li><a href="{{ route('login') }}">{{ __('Login') }}</a></li>
-                                @endguest
+                            @guest
+                                <li><a href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                                @if (Route::has('register'))
+                                <li><a href="{{ route('register') }}">{{ __('Register') }}</a></li>
+                                @endif
+                            @endguest
                             </ul>
                         </div><!-- End .header-menu -->
                     </div><!-- End .header-dropown -->
 
                     <!-- Authentication Links -->
-                        @if(Auth::user())
+                        @auth
                         <div class="header-dropdown ml-3">
                             <a href="#">
                                 {{ Auth::user()->username }} <span class="caret"></span>
@@ -111,8 +114,8 @@
                                     </form>
                                 </ul>
                             </div>
-                        @endif
-                    </div>
+                        </div>
+                        @endauth
                 </div><!-- End .header-right -->
             </div><!-- End .container -->
         </div><!-- End .header-top -->
@@ -121,7 +124,7 @@
             <div class="container">
                 <div class="header-left">
                     <a href="index.php" class="logo">
-                        <img src="assets/images/logo.png" alt="Porto Logo">
+                        <img src="{{ asset('frontendAsset/assets/images/logo.png') }}" alt="Porto Logo">
                     </a>
                 </div><!-- End .header-left -->
 
