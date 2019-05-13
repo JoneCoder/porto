@@ -85,33 +85,34 @@
                                 <li><a href="#">MY WISHLIST </a></li>
                                 <li><a href="blog.php">BLOG</a></li>
                                 <li><a href="contact.php">Contact</a></li>
-                                <!-- Authentication Links -->
                                 @guest
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                    </li>
-                                @else
-                                    <li class="nav-item dropdown">
-                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                            {{ Auth::user()->username }} <span class="caret"></span>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                                {{ __('Logout') }}
-                                            </a>
-
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                @csrf
-                                            </form>
-                                        </div>
-                                    </li>
+                                    <li><a href="{{ route('login') }}">{{ __('Login') }}</a></li>
                                 @endguest
                             </ul>
                         </div><!-- End .header-menu -->
                     </div><!-- End .header-dropown -->
+
+                    <!-- Authentication Links -->
+                        @if(Auth::user())
+                        <div class="header-dropdown ml-3">
+                            <a href="#">
+                                {{ Auth::user()->username }} <span class="caret"></span>
+                            </a>
+                            <div class="header-menu">
+                                <ul>
+                                    <a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </ul>
+                            </div>
+                        @endif
+                    </div>
                 </div><!-- End .header-right -->
             </div><!-- End .container -->
         </div><!-- End .header-top -->
