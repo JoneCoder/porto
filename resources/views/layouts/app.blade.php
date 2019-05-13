@@ -120,8 +120,8 @@
         <div class="header-middle">
             <div class="container">
                 <div class="header-left">
-                    <a href="{{ url('/') }}" class="logo">
-                        <img src="{{ asset('frontendAsset/assets/images/logo.png') }}" alt="Porto Logo">
+                    <a href="index.php" class="logo">
+                        <img src="assets/images/logo.png" alt="Porto Logo">
                     </a>
                 </div><!-- End .header-left -->
 
@@ -189,7 +189,7 @@
 
                                         <figure class="product-image-container">
                                             <a href="product.php" class="product-image">
-                                                <img src="{{ asset('frontendAsset/assets/images/products/cart/product-1.jpg') }}" alt="product">
+                                                <img src="assets/images/products/cart/product-1.jpg" alt="product">
                                             </a>
                                             <a href="#" class="btn-remove" title="Remove Product"><i class="icon-cancel"></i></a>
                                         </figure>
@@ -209,7 +209,7 @@
 
                                         <figure class="product-image-container">
                                             <a href="product.php" class="product-image">
-                                                <img src="{{ asset('frontendAsset/assets/images/products/cart/product-2.jpg') }}" alt="product">
+                                                <img src="assets/images/products/cart/product-2.jpg" alt="product">
                                             </a>
                                             <a href="#" class="btn-remove" title="Remove Product"><i class="icon-cancel"></i></a>
                                         </figure>
