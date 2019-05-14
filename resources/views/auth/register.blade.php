@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="{{ asset('frontendAsset/loginSignup/css/style.css') }}">
 
@@ -34,39 +38,24 @@
                             <div class="sminputs">
                                 <div class="input full">
                                     <label class="string optional" for="user-name">Username*</label>
-                                    <input class="string optional @error('username') is-invalid @enderror" maxlength="255" id="user-name" placeholder="Username" type="text" size="50" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus />
-                                    @error('username')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    <input class="string optional @error('username') is-invalid @enderror" data-toggle="tooltip" data-placement="bottom" title="Type Username" data-html="true" maxlength="255" id="user-name" placeholder="Username" type="text" size="50" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus />
                                 </div>
                             </div>
                             <div class="sminputs">
                                 <div class="input full">
                                     <label class="string optional" for="user-email">Email*</label>
-                                    <input class="string optional @error('email') is-invalid @enderror" maxlength="255" id="user-email" placeholder="Email" type="email" size="50" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus />
-                                    @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    <input class="string optional @error('email') is-invalid @enderror" data-toggle="tooltip" data-placement="bottom" title="Input Valid E-mail Address" data-html="true" maxlength="255" id="user-email" placeholder="Email" type="email" size="50" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus />
                                 </div>
                             </div>
 
                             <div class="sminputs">
                                 <div class="input string optional">
                                     <label class="string optional" for="user-pw">Password *</label>
-                                    <input class="string optional @error('password') is-invalid @enderror" maxlength="255" id="user-pw" placeholder="Password" type="password" size="50" name="password" value="{{ old('password') }}" required autocomplete="new-password" />
-                                    @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    <input class="string optional @error('password') is-invalid @enderror" data-toggle="tooltip" data-placement="bottom" title="Password Must be 8 Charters" data-html="true" maxlength="255" id="user-pw" placeholder="Password" type="password" size="50" name="password" value="{{ old('password') }}" required autocomplete="new-password" />
                                 </div>
                                 <div class="input string optional">
                                     <label class="string optional" for="user-pw-repeat">Repeat password *</label>
-                                    <input class="string optional" maxlength="255" id="user-pw-repeat" placeholder="Repeat password" type="password" size="50" name="password_confirmation" required autocomplete="new-password" />
+                                    <input class="string optional" data-toggle="tooltip" data-placement="bottom" title="Confirm Password" data-html="true" maxlength="255" id="user-pw-repeat" placeholder="Repeat password" type="password" size="50" name="password_confirmation" required autocomplete="new-password" />
                                 </div>
                             </div>
                             <div class="simform__actions">
@@ -78,8 +67,7 @@
                     </div>
                 </div>
                 <div class="logmod__tab lgm-2">
-                    <div class="logmod__heading">
-                        <span class="logmod__heading-subtitle">Enter your email and password <strong>to sign in</strong></span>
+                    <div class="logmod__heading">@error('email') <span id="errorField" class="errorField">{{ $message }} </span> @else <span class="logmod__heading-subtitle">Enter your email and password <strong>to sign in</strong></span> @enderror
                     </div>
                     <div class="logmod__form">
 
@@ -88,23 +76,13 @@
                             <div class="sminputs">
                                 <div class="input full">
                                     <label class="string optional" for="user-name">Email*</label>
-                                    <input class="string optional @error('email') is-invalid @enderror" maxlength="255" id="user-email" placeholder="Email" type="email" size="50" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus />
-                                    @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    <input class="string optional @error('email') is-invalid @enderror" data-toggle="tooltip" data-placement="bottom" title="Input Your E-mail Address" data-html="true" maxlength="255" id="user-email" placeholder="Email" type="email" size="50" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus />
                                 </div>
                             </div>
                             <div class="sminputs">
                                 <div class="input full">
                                     <label class="string optional" for="user-pw">Password *</label>
-                                    <input class="string optional @error('password') is-invalid @enderror" maxlength="255" id="user-pw" placeholder="Password" type="password" size="50" name="password" required autocomplete="current-password" />
-                                    @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    <input class="string optional @error('password') is-invalid @enderror" data-toggle="tooltip" data-placement="bottom" title="Input Your Password" data-html="true" maxlength="255" id="user-pw" placeholder="Password" type="password" size="50" name="password" required autocomplete="current-password" />
                                     <span class="hide-password">Show</span>
                                 </div>
                             </div>
@@ -126,7 +104,24 @@
         </div>
     </div>
 </div>
-<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+<script>
+    function intensify(intense) {
+        intense.addClass('animated shakeit').delay(2000).queue(function(){
+            intense.removeClass('animated shakeit').dequeue();
+        });
+    }
+    intensify($('#errorField'));
+</script>
+
+<script>
+    $(document).ready(function(){
+        $("[data-toggle=tooltip]").tooltip();
+        $("[data-toggle=tooltip]").hover(function(){
+            $('.tooltip').css('left',parseInt($('.tooltip').css('left')) - 47 + 'px' )
+        });
+    });
+</script>
 
 
 
