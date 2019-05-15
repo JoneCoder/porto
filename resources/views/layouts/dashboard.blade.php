@@ -1,6 +1,6 @@
+@if(Auth::user()->role == 1)
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -20,8 +20,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo" href="index.html"><img src="{{ asset('frontendAsset/assets/images/logo.png') }}" alt="logo"/></a>
-            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo"/></a>
+            <a class="navbar-brand brand-logo" href="{{ url('/') }}"><img src="{{ asset('frontendAsset/assets/images/logo.png') }}" alt="logo"/></a>
+            <a class="navbar-brand brand-logo-mini" href="{{ url('/') }}"><img src="{{ asset('frontendAsset/assets/images/logo.svg') }}" alt="logo"/></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
             <div class="search-field d-none d-md-block">
@@ -42,7 +42,7 @@
                             <span class="availability-status online"></span>
                         </div>
                         <div class="nav-profile-text">
-                            <p class="mb-1 text-black">David Greymaax</p>
+                            <p class="mb-1 text-black">{{ Auth::User()->username }}</p>
                         </div>
                     </a>
                     <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
@@ -51,10 +51,14 @@
                             Activity Log
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
                             <i class="mdi mdi-logout mr-2 text-primary"></i>
                             Signout
                         </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                     </div>
                 </li>
                 <li class="nav-item d-none d-lg-block full-screen-link">
@@ -184,20 +188,20 @@
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <ul class="nav">
                 <li class="nav-item nav-profile">
-                    <a href="#" class="nav-link">
+                    <a href="{{ url('/home/profile') }}/{{ Auth::User()->id }}" class="nav-link">
                         <div class="nav-profile-image">
                             <img src="{{ asset('backendAsset/dashboard/images/faces/face1.jpg')}}" alt="profile">
                             <span class="login-status online"></span> <!--change to offline or busy as needed-->
                         </div>
                         <div class="nav-profile-text d-flex flex-column">
-                            <span class="font-weight-bold mb-2">David Grey. H</span>
+                            <span class="font-weight-bold mb-2">{{ Auth::User()->username }}</span>
                             <span class="text-secondary text-small">Project Manager</span>
                         </div>
                         <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href="{{ url('/home') }}">
                         <span class="menu-title">Dashboard</span>
                         <i class="mdi mdi-home menu-icon"></i>
                     </a>
@@ -301,3 +305,65 @@
 <!-- End custom js for this page-->
 </body>
 </html>
+@else
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Purple Admin</title>
+        <!-- plugins:css -->
+        <link rel="stylesheet" href="{{ asset('backendAsset/dashboard/vendors/iconfonts/mdi/css/materialdesignicons.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('backendAsset/dashboard/vendors/css/vendor.bundle.base.css')}}">
+        <!-- endinject -->
+        <!-- inject:css -->
+        <link rel="stylesheet" href="{{ asset('backendAsset/dashboard/css/style.css')}}">
+        <!-- endinject -->
+        <link rel="shortcut icon" href="{{ asset('backendAsset/dashboard/images/favicon.png')}}" />
+    </head>
+
+    <body>
+    <div class="container-scroller">
+        <div class="container-fluid page-body-wrapper full-page-wrapper">
+            <div class="content-wrapper d-flex align-items-center text-center error-page bg-primary">
+                <div class="row flex-grow">
+                    <div class="col-lg-7 mx-auto text-white">
+                        <div class="row align-items-center d-flex flex-row">
+                            <div class="col-lg-6 text-lg-right pr-lg-4">
+                                <h1 class="display-1 mb-0">404</h1>
+                            </div>
+                            <div class="col-lg-6 error-page-divider text-lg-left pl-lg-4">
+                                <h2>SORRY!</h2>
+                                <h3 class="font-weight-light">The page you’re looking for was not found.</h3>
+                            </div>
+                        </div>
+                        <div class="row mt-5">
+                            <div class="col-12 text-center mt-xl-2">
+                                <a class="text-white font-weight-medium" href="{{ url('/') }}">Back to home</a>
+                            </div>
+                        </div>
+                        <div class="row mt-5">
+                            <div class="col-12 mt-xl-2">
+                                <p class="text-white font-weight-medium text-center">Copyright &copy; 2019  All rights reserved.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="{{ asset('backendAsset/dashboard/vendors/js/vendor.bundle.base.js')}}"></script>
+    <script src="{{ asset('backendAsset/dashboard/vendors/js/vendor.bundle.addons.js')}}"></script>
+    <!-- endinject -->
+    <!-- inject:js -->
+    <script src="{{ asset('backendAsset/dashboard/js/off-canvas.js')}}"></script>
+    <script src="{{ asset('backendAsset/dashboard/js/misc.js')}}"></script>
+    <!-- endinject -->
+    </body>
+    </html>
+@endif

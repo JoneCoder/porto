@@ -74,13 +74,31 @@
                 </div><!-- End .header-left -->
 
                 <div class="header-right">
-                    <p class="welcome-msg">Default welcome msg! </p>
+                    @auth
+                    @if(Auth::user()->role == 1)
+                        <a href="{{ url('/home') }}" target="_blank" class="btn btn-sm btn-sm-primary">Cpanel</a>
+                    @else
+                    <p class="welcome-msg">Welcome to Porto eCommerce! </p>
+                    @endif
+                    @endauth
+                    @guest
+                       <p class="welcome-msg">Welcome to Porto eCommerce! </p>
+                    @endguest
 
                     <div class="header-dropdown dropdown-expanded">
                         <a href="#">Links</a>
                         <div class="header-menu">
                             <ul>
-                                <li><a href="my-account.php">MY ACCOUNT </a></li>
+                                @auth
+                                    @if(Auth::user()->role == 1)
+                                        <li><a href="{{ url('/home/profile') }}/{{ Auth::User()->id }}" target="_blank">MY ACCOUNT </a></li>
+                                    @else
+                                        <li><a href="{{ url('/my/account') }}/{{ Auth::User()->id }}">MY ACCOUNT </a></li>
+                                    @endif
+                                @endauth
+                                @guest
+                                        <li><a href="{{ url('/register') }}">MY ACCOUNT </a></li>
+                                @endguest
                                 <li><a href="#">DAILY DEAL</a></li>
                                 <li><a href="#">MY WISHLIST </a></li>
                                 <li><a href="blog.php">BLOG</a></li>
@@ -123,7 +141,7 @@
         <div class="header-middle">
             <div class="container">
                 <div class="header-left">
-                    <a href="index.php" class="logo">
+                    <a href="{{ url('/') }}" class="logo">
                         <img src="{{ asset('frontendAsset/assets/images/logo.png') }}" alt="Porto Logo">
                     </a>
                 </div><!-- End .header-left -->
@@ -192,7 +210,7 @@
 
                                         <figure class="product-image-container">
                                             <a href="product.php" class="product-image">
-                                                <img src="assets/images/products/cart/product-1.jpg" alt="product">
+                                                <img src="{{ asset('frontendAsset/assets/images/products/cart/product-1.jpg')}}" alt="product">
                                             </a>
                                             <a href="#" class="btn-remove" title="Remove Product"><i class="icon-cancel"></i></a>
                                         </figure>
@@ -212,7 +230,7 @@
 
                                         <figure class="product-image-container">
                                             <a href="product.php" class="product-image">
-                                                <img src="assets/images/products/cart/product-2.jpg" alt="product">
+                                                <img src="{{ asset('frontendAsset/assets/images/products/cart/product-2.jpg')}}" alt="product">
                                             </a>
                                             <a href="#" class="btn-remove" title="Remove Product"><i class="icon-cancel"></i></a>
                                         </figure>
