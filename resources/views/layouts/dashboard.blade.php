@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Purple Admin</title>
+    <title>Porto Admin</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('backendAsset/dashboard/vendors/iconfonts/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backendAsset/dashboard/vendors/css/vendor.bundle.base.css')}}">
@@ -13,7 +13,7 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('backendAsset/dashboard/css/style.css')}}">
     <!-- endinject -->
-    <link rel="shortcut icon" href="{{ asset('backendAsset/dashboard/images/favicon.png')}}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('frontendAsset/assets/images/icons/favicon.ico') }}">
 </head>
 <body>
 <div class="container-scroller">
