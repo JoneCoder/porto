@@ -14,6 +14,10 @@
     <link rel="stylesheet" href="{{ asset('backendAsset/dashboard/css/style.css')}}">
     <!-- endinject -->
     <link rel="icon" type="image/x-icon" href="{{ asset('frontendAsset/assets/images/icons/favicon.ico') }}">
+
+    <style>
+        @yield('style')
+    </style>
 </head>
 <body>
 <div class="container-scroller">

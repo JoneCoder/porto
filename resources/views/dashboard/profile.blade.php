@@ -3,7 +3,6 @@
     <div class="container bootstrap snippet">
         <div class="row">
             <div class="col-sm-10"><h1>{{ Auth::User()->username }}</h1></div>
-            <div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="http://www.gravatar.com/avatar/28fd20ccec6865e2d5f0e1f4446eb7bf?s=100"></a></div>
         </div>
         <div class="row">
             <div class="col-sm-3"><!--left col-->
@@ -20,33 +19,58 @@
                     <div class="panel-body"><a href="{{ url('/') }}" target="_blank">Porto.com</a></div>
                 </div>
 
-
-                <ul class="list-group mt-2">
-                    <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
-                    <li class="list-group-item"><span class="pull-left"><strong>Shares</strong></span> 125</li>
-                    <li class="list-group-item"><span class="pull-left"><strong>Likes</strong></span> 13</li>
-                    <li class="list-group-item"><span class="pull-left"><strong>Posts</strong></span> 37</li>
-                    <li class="list-group-item"><span class="pull-left"><strong>Followers</strong></span> 78</li>
+                @section('style')
+                    .activity li{
+                        padding: 10px;
+                        margin: 0;
+                    }
+                    .activity li a{
+                        width: 100%;
+                        height: 100%;
+                        text-decoration: none;
+                        padding: 0;
+                        margin: 0;
+                        color: black;
+                        front-style: bold;
+                    }
+                    .activity li:hover{
+                        cursor: pointer;
+                        background-color: gray;
+                    }
+                @endsection
+                <ul class="list-group mt-2 activity">
+                    <li class="list-group-item text-muted"><i class="mdi mdi-home menu-icon"></i>Activity</li>
+                    <li class="list-group-item"><a class="nav-link" data-toggle="tab" href="#home">&gt; Account Information</a></li>
+                    <li class="list-group-item"><a class="nav-link" data-toggle="tab" href="#messages">&gt; Edit Account Information</a></li>
+                    <li class="list-group-item"><a class="nav-link" data-toggle="tab" href="#settings">&gt; Menu 2</a></li>
                 </ul>
 
                 <div class="panel panel-default mt-2">
                     <div class="panel-heading"><strong>Social Media</strong></div>
                     <div class="panel-body">
-                        <button type="button" class="btn btn-social-icon btn-facebook"><i class="mdi mdi-facebook"></i></button>
-                        <button type="button" class="btn btn-social-icon btn-youtube"><i class="mdi mdi-youtube-play"></i></button>
-                        <button type="button" class="btn btn-social-icon btn-twitter"><i class="mdi mdi-twitter"></i></button>
-                        <button type="button" class="btn btn-social-icon btn-linkedin"><i class="mdi mdi-linkedin"></i></button>
+                        <button type="button" class="btn btn-social-icon btn-facebook mt-1"><i class="mdi mdi-facebook"></i></button>
+                        <button type="button" class="btn btn-social-icon btn-youtube mt-1"><i class="mdi mdi-youtube-play"></i></button>
+                        <button type="button" class="btn btn-social-icon btn-twitter mt-1"><i class="mdi mdi-twitter"></i></button>
+                        <button type="button" class="btn btn-social-icon btn-linkedin mt-1"><i class="mdi mdi-linkedin"></i></button>
                     </div>
                 </div>
 
             </div><!--/col-3-->
             <div class="col-sm-9">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#home">Profile info</a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#messages">Edit</a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#settings">Menu 2</a></li>
-                </ul>
-
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-secondary">
+                        <i class="mdi mdi-share-variant"></i>Shares 125
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary">
+                        <i class="mdi mdi-heart"></i>Likes 13
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary">
+                        <i class="mdi mdi-format-line-style"></i>Posts 37
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary">
+                        <i class="mdi mdi-account-multiple"></i>Followers 78
+                    </button>
+                </div>
 
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="home">
