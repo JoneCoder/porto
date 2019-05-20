@@ -306,6 +306,7 @@
 <!-- endinject -->
 <!-- Custom js for this page-->
 <script src="{{ asset('backendAsset/dashboard/js/dashboard.js')}}"></script>
+@yield('script')
 <!-- End custom js for this page-->
 </body>
 </html>

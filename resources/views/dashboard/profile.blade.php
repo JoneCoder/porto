@@ -9,8 +9,15 @@
                 <div class="text-center">
                     <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
                     <h6>Upload a different photo...</h6>
-                    <button type="button" class="btn btn-gradient-danger btn-icon-text">
-                        <i class="mdi mdi-upload btn-icon-prepend"></i>Upload</button>
+                    <div class="form-group">
+                        <input type="file" name="img[]" accept="image/*" class="file-upload-default">
+                        <div class="input-group col-xs-12">
+                            <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                            <span class="input-group-append">
+                          <button class="file-upload-browse btn btn-gradient-danger btn-icon-text" type="button"><i class="mdi mdi-upload btn-icon-prepend"></i>Upload</button>
+                        </span>
+                        </div>
+                    </div>
                 </div></hr><br>
 
 
@@ -42,7 +49,7 @@
                     <li class="list-group-item text-muted"><i class="mdi mdi-home menu-icon"></i>Activity</li>
                     <li class="list-group-item"><a class="nav-link" data-toggle="tab" href="#home">&gt; Account Information</a></li>
                     <li class="list-group-item"><a class="nav-link" data-toggle="tab" href="#messages">&gt; Edit Account Information</a></li>
-                    <li class="list-group-item"><a class="nav-link" data-toggle="tab" href="#settings">&gt; Menu 2</a></li>
+                    <li class="list-group-item"><a class="nav-link" data-toggle="tab" href="#settings">&gt; Password & Account</a></li>
                 </ul>
 
                 <div class="panel panel-default mt-2">
@@ -288,10 +295,12 @@
                             </div>
                         </form>
                     </div>
+                </div><!--/tab-content-->
+            </div><!--/col-9-->
 
-                </div><!--/tab-pane-->
-            </div><!--/tab-content-->
-
-        </div><!--/col-9-->
-    </div><!--/row-->
+        </div><!--/row-->
+    </div>
+@endsection
+@section('script')
+    <script src="{{ asset('backendAsset/dashboard/js/file-upload.js')}}"></script> {{--file upload--}}
 @endsection
