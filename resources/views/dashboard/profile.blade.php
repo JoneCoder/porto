@@ -112,7 +112,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Tel:</th>
-                                    <td colspan="2">{{ Auth::User()->phoneNumber }}</td>
+                                    <td colspan="2">{{ Auth::User()->countryCode.'-'.Auth::User()->phoneNumber }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Date of Birth:</th>

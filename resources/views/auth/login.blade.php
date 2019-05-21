@@ -29,7 +29,15 @@
             <div class="logmod__tab-wrapper">
                 <div class="logmod__tab lgm-1">
                     <div class="logmod__heading">
-                        <span class="logmod__heading-subtitle">Enter your personal details <strong>to create an acount</strong></span>
+                        @if(!empty($errors->first()))
+                            @if($errors->first() == "The email has already been taken." || $errors->first() == "The username has already been taken." || $errors->first() == "The password confirmation does not match." || $errors->first() == "The password must be at least 8 characters.")
+                                <span id="errorField" class="errorField">{{ $errors->first() }} </span>
+                            @else
+                                <span class="logmod__heading-subtitle">Enter your personal details <strong>to create an acount</strong></span>
+                            @endif
+                        @else
+                            <span class="logmod__heading-subtitle">Enter your personal details <strong>to create an acount</strong></span>
+                        @endif
                     </div>
                     <div class="logmod__form">
 
@@ -67,7 +75,16 @@
                     </div>
                 </div>
                 <div class="logmod__tab lgm-2">
-                    <div class="logmod__heading">@error('email') <span id="errorField" class="errorField">{{ $message }} </span> @else <span class="logmod__heading-subtitle">Enter your email and password <strong>to sign in</strong></span> @enderror
+                    <div class="logmod__heading">
+                        @if(!empty($errors->first()))
+                            @if($errors->first() == "These credentials do not match our records.")
+                                <span id="errorField" class="errorField">{{ $errors->first() }} </span>
+                            @else
+                                <span class="logmod__heading-subtitle">Enter your email and password <strong>to sign in</strong></span>
+                            @endif
+                        @else
+                            <span class="logmod__heading-subtitle">Enter your email and password <strong>to sign in</strong></span>
+                        @endif
                     </div>
                     <div class="logmod__form">
 
