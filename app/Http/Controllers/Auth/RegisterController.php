@@ -63,9 +63,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $socialLinkCode = rand(1000, 9999);
+        $socialLinkCode = '#'.$socialLinkCode;
         return User::create([
             'username' => $data['username'],
             'email' => $data['email'],
+            'socialLinkCode' => $socialLinkCode,
             'password' => Hash::make($data['password']),
         ]);
     }

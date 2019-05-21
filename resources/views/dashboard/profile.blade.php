@@ -2,15 +2,15 @@
 @section('admin-content')
     <div class="container bootstrap snippet">
         <div class="row">
-            <div class="col-sm-10"><h1>{{ Auth::User()->username }}</h1></div>
-        </div>
-        <div class="row">
             <div class="col-sm-3"><!--left col-->
                 <div class="text-center">
                     <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                    <div id="avatar" style="display: none;">
                     <h6>Upload a different photo...</h6>
+                    <form class="form" action="{{ url('/user/profile/update') }}/{{ Auth::User()->id }}" method="post" id="registrationForm" enctype="multipart/form-data">
+                        @csrf
                     <div class="form-group">
-                        <input type="file" name="img[]" accept="image/*" class="file-upload-default">
+                        <input type="file" name="avatar" accept="image/*" class="file-upload-default">
                         <div class="input-group col-xs-12">
                             <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
                             <span class="input-group-append">
@@ -18,7 +18,12 @@
                         </span>
                         </div>
                     </div>
-                </div></hr><br>
+                    </div>
+                </div>
+                <div class="text-center" id="username">
+                    <h1>{{ Auth::User()->username }}</h1>
+                </div>
+                </hr><br>
 
 
                 <div class="panel panel-default">
@@ -47,8 +52,8 @@
                 @endsection
                 <ul class="list-group mt-2 activity">
                     <li class="list-group-item text-muted"><i class="mdi mdi-home menu-icon"></i>Activity</li>
-                    <li class="list-group-item"><a class="nav-link" data-toggle="tab" href="#home">&gt; Account Information</a></li>
-                    <li class="list-group-item"><a class="nav-link" data-toggle="tab" href="#messages">&gt; Edit Account Information</a></li>
+                    <li class="list-group-item"><a class="nav-link" data-toggle="tab" href="#home" id="acInfo">&gt; Account Information</a></li>
+                    <li class="list-group-item"><a class="nav-link" data-toggle="tab" href="#messages" id="edInfo">&gt; Edit Account Information</a></li>
                     <li class="list-group-item"><a class="nav-link" data-toggle="tab" href="#settings">&gt; Password & Account</a></li>
                 </ul>
 
@@ -82,218 +87,196 @@
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="home">
                         <hr>
-                        <form class="form" action="" method="post" id="registrationForm">
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="first_name"><h4>First name</h4></label>
-                                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any.">
-                                </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h3>{{ Auth::User()->name }}<sub>({{ Auth::User()->username }})</sub><sub>.</sub></h3>
                             </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="last_name"><h4>Last name</h4></label>
-                                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
-                                </div>
+                            <div class="col-12">
+                                <p>{{ Auth::User()->aboutUs }}</p>
                             </div>
-
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="phone"><h4>Phone</h4></label>
-                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
-                                </div>
+                            <div class="col-12">
+                                <h5>Project Manager | Porto eCommerce</h5>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <div class="col-xs-6">
-                                    <label for="mobile"><h4>Mobile</h4></label>
-                                    <input type="text" class="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="email"><h4>Email</h4></label>
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email.">
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="email"><h4>Location</h4></label>
-                                    <input type="email" class="form-control" id="location" placeholder="somewhere" title="enter a location">
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="password"><h4>Password</h4></label>
-                                    <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="password2"><h4>Verify</h4></label>
-                                    <input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-xs-12 nav nav-tabs">
-                                    <br>
-                                    <li class="nav-item"><a href="#messages" class="nav-link btn btn-lg btn-success" type="reset" data-toggle="tab"><i class=" mdi mdi-repeat"></i> Reset</a></li>
-                                </div>
-                            </div>
-                        </form>
-
+                        <div class="row">
+                            <table class="table table-borderless">
+                                <tbody>
+                                <tr>
+                                    <th scope="row">Name:</th>
+                                    <td>{{ Auth::User()->name }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">E-mail:</th>
+                                    <td>{{ Auth::User()->email }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Tel:</th>
+                                    <td colspan="2">{{ Auth::User()->phoneNumber }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Date of Birth:</th>
+                                    <td colspan="2">{{ Auth::User()->dateOfBirth }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Address:</th>
+                                    <td colspan="2">{{ Auth::User()->address }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Available:</th>
+                                    <td colspan="2">{{ Auth::User()->open }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <hr>
-
                     </div><!--/tab-pane-->
                     <div class="tab-pane fade" id="messages">
-
-                        <h2></h2>
-
                         <hr>
-                        <form class="form" action="##" method="post" id="registrationForm">
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="first_name"><h4>First name</h4></label>
-                                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any.">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="username"><h4>Username</h4></label>
+                                        <input type="text" class="form-control" name="username" id="username" placeholder="Username" value="{{ Auth::User()->username }}" title="enter your Username if any.">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="last_name"><h4>Last name</h4></label>
-                                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name"><h4>Name</h4></label>
+                                        <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{ Auth::User()->name }}" title="enter your full name if any.">
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="phone"><h4>Phone</h4></label>
-                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="form-group">
+                                                <label for="code"><h4>Country</h4></label>
+                                                <select name="countryCode" class="form-control">
+                                                    <option value="+93">Afghanistan</option>
+                                                    <option value="+213">Algeria</option>
+                                                    <option value="+1-684">American Samoa</option>
+                                                    <option value="+54">Argentina</option>
+                                                    <option value="+61">Australia</option>
+                                                    <option value="+1-242">Bahamas</option>
+                                                    <option value="+973">Bahrain</option>
+                                                    <option value="+880">Bangladesh</option>
+                                                    <option value="+32">Belgium</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-7">
+                                            <div class="form-group">
+                                                <label for="phone"><h4>Phone</h4></label>
+                                                <input type="number" class="form-control" name="phoneNumber" id="phone" placeholder="enter phone" value="{{ Auth::User()->phoneNumber }}" title="enter your phone number if any.">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-xs-6">
-                                    <label for="mobile"><h4>Mobile</h4></label>
-                                    <input type="text" class="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="birthday"><h4>Date of Birth</h4></label>
+                                        <input type="date" class="form-control" name="dateOfBirth" id="birthday" value="{{ Auth::User()->dateOfBirth }}" title="enter your date of birth if any.">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="email"><h4>Email</h4></label>
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email.">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="form-group">
+                                                <label for="city"><h4>City</h4></label>
+                                                <input type="text" name="city" id="city" class="form-control" placeholder="city" value="{{ Auth::User()->city }}" title="enter your city if any."/>
+                                            </div>
+                                        </div>
+                                        <div class="col-7">
+                                            <div class="form-group">
+                                                <label for="gender"><h4>Gender</h4></label>
+                                                <select class="form-control" name="gender" id="gender" >
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="others">Others</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="email"><h4>Location</h4></label>
-                                    <input type="email" class="form-control" id="location" placeholder="somewhere" title="enter a location">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email"><h4>Email</h4></label>
+                                        <input type="email" class="form-control" name="email" id="email" value="{{ Auth::User()->email }}" placeholder="you@email.com" title="enter your email.">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="password"><h4>Password</h4></label>
-                                    <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="address"><h4>Location</h4></label>
+                                        <input type="text" class="form-control" name="address" id="address" value="{{ Auth::User()->address }}" placeholder="somewhere" title="enter a location">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="password2"><h4>Verify</h4></label>
-                                    <input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="open"><h4>Available Time</h4></label>
+                                        <input type="text" class="form-control" name="open" id="open" placeholder="Sat-Thu 10am-6pm" value="{{ Auth::User()->open }}" title="enter your Available Time.">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-xs-12">
-                                    <br>
-                                    <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                                    <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h4>Social Links</h4>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-4 text-center"><label for="facebook"><h5><i class="text-info mdi mdi-facebook"></i>Facebook</h5></label></div>
+                                                <div class="col-md-8">
+                                                    <input type="url" class="form-control" name="facebook" id="facebook" placeholder="https://facebook.com/" title="enter your facebook url.">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-4 text-center"><label for="youtube"><h5><i class="text-danger mdi mdi-youtube-play"></i>YouTube</h5></label></div>
+                                                <div class="col-md-8">
+                                                    <input type="url" class="form-control" name="youtube" id="youtube" placeholder="https://youtube.com/" title="enter your youtube url.">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-4 text-center"><label for="twitter"><h5><i class="mdi mdi-twitter" style="color: #2caae1;"></i>Twitter</h5></label></div>
+                                                <div class="col-md-8">
+                                                    <input type="url" class="form-control" name="twitter" id="twitter" placeholder="https://twitter.com/" title="enter your twitter url.">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-4 text-center"><label for="linkedin"><h5><i class="mdi mdi-linkedin" style="color: #0198e8;"></i>Linkedin</h5></label></div>
+                                                <div class="col-md-8">
+                                                    <input type="url" class="form-control" name="linkedin" id="linkedin" placeholder="https://linkedin.com/" title="enter your linkedin url.">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="aboutUs"><h4>About Us</h4></label>
+                                        <textarea name="aboutUs" id="aboutUs" class="form-control" rows="7">{{ Auth::User()->aboutUs }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <br>
+                                        <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
 
                     </div><!--/tab-pane-->
                     <div class="tab-pane fade" id="settings">
-
-
                         <hr>
-                        <form class="form" action="##" method="post" id="registrationForm">
-                            <div class="form-group">
 
-                                <div class="col-xs-6">
-                                    <label for="first_name"><h4>First name</h4></label>
-                                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any.">
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="last_name"><h4>Last name</h4></label>
-                                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="phone"><h4>Phone</h4></label>
-                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-xs-6">
-                                    <label for="mobile"><h4>Mobile</h4></label>
-                                    <input type="text" class="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="email"><h4>Email</h4></label>
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email.">
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="email"><h4>Location</h4></label>
-                                    <input type="email" class="form-control" id="location" placeholder="somewhere" title="enter a location">
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="password"><h4>Password</h4></label>
-                                    <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="password2"><h4>Verify</h4></label>
-                                    <input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-xs-12">
-                                    <br>
-                                    <button class="btn btn-lg btn-success pull-right" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                                    <!--<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>-->
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div><!--/tab-content-->
             </div><!--/col-9-->
@@ -303,4 +286,16 @@
 @endsection
 @section('script')
     <script src="{{ asset('backendAsset/dashboard/js/file-upload.js')}}"></script> {{--file upload--}}
+    <script>
+        $(document).ready(function(){
+            $("#acInfo").click(function(){
+                $("#avatar").hide();
+                $("#username").show();
+            });
+            $("#edInfo").click(function(){
+                $("#username").hide();
+                $("#avatar").show();
+            });
+        });
+    </script>
 @endsection

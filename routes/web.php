@@ -18,6 +18,9 @@ Route::get('/my/account/{userId}', 'FrontendController@myAccount');
 //Authentication routers
 Auth::routes();
 
+//Update profile
+Route::post('/user/profile/update/{profileId}', 'ProfileController@profileUpdate')->name('updateProfile');
+
 //Backend routers
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home/profile/{profileId}', 'HomeController@adminProfile')->name('home');
+Route::get('/home/profile/{profileId}', 'HomeController@adminProfile')->name('profile');
