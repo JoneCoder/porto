@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\SocialLink;
-use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 
 class ProfileController extends Controller
@@ -15,32 +15,33 @@ class ProfileController extends Controller
         $this->middleware('auth');
     }
     public function profileUpdate(Request $request, $profileId){
+        $socialLinkCodeUser = User::find($profileId)->socialLinkCode;
+        $socialLinkCode = SocialLink::where('socialLinkCode', $socialLinkCodeUser)->first('socialLinkCode');
+
         if ($request->hasFile('avatar')){
             echo "kichu korba na";
         }
+        if (!empty($socialLinkCode)){
+            User::find($profileId)->update($request->except('_token', 'avatar', 'facebook', 'youtube', 'twitter', 'linkedin'));
+            SocialLink::where('socialLinkCode', $socialLinkCodeUser)->update([
+                'facebook' => $request->facebook,
+                'youtube' => $request->youtube,
+                'twitter' => $request->twitter,
+                'linkedin' => $request->linkedin,
+
+            ]);
+        }
         else{
-            if (SocialLink::where('socialLinkCode', User::find($profileId)->socialLinkCode)){
-                User::find($profileId)->update($request->except('_token', 'avatar', 'facebook', 'youtube', 'twitter', 'linkedin'));
-                SocialLink::where('socialLinkCode', User::find($profileId)->socialLinkCode)->update([
-                    'facebook' => $request->facebook,
-                    'youtube' => $request->youtube,
-                    'twitter' => $request->twitter,
-                    'linkedin' => $request->linkedin,
+            User::find($profileId)->update($request->except('_token', 'avatar', 'facebook', 'youtube', 'twitter', 'linkedin'));
+            SocialLink::insert([
+                'socialLinkCode' => $socialLinkCodeUser,
+                'facebook' => $request->facebook,
+                'youtube' => $request->youtube,
+                'twitter' => $request->twitter,
+                'linkedin' => $request->linkedin,
+                'created_at' => Carbon::now(),
 
-                ]);
-            }
-            else{
-                SocialLink::insert([
-                    'socialLinkCode' => User::find($profileId)->socialLinkCode,
-                    'facebook' => $request->facebook,
-                    'youtube' => $request->youtube,
-                    'twitter' => $request->twitter,
-                    'linkedin' => $request->linkedin,
-
-                ]);
-                User::find($profileId)->update($request->except('_token', 'avatar', 'facebook', 'youtube', 'twitter', 'linkedin'));
-            }
-
+            ]);
         }
         return back();
     }
