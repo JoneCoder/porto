@@ -31,25 +31,6 @@
                     <div class="panel-body"><a href="{{ url('/') }}" target="_blank">Porto.com</a></div>
                 </div>
 
-                @section('style')
-                    .activity li{
-                        padding: 10px;
-                        margin: 0;
-                    }
-                    .activity li a{
-                        width: 100%;
-                        height: 100%;
-                        text-decoration: none;
-                        padding: 0;
-                        margin: 0;
-                        color: black;
-                        front-style: bold;
-                    }
-                    .activity li:hover{
-                        cursor: pointer;
-                        background-color: gray;
-                    }
-                @endsection
                 <ul class="list-group mt-2 activity">
                     <li class="list-group-item text-muted"><i class="mdi mdi-home menu-icon"></i>Activity</li>
                     <li class="list-group-item"><a class="nav-link" data-toggle="tab" href="#home" id="acInfo">&gt; Account Information</a></li>
@@ -119,8 +100,16 @@
                                     <td colspan="2">{{ Auth::User()->dateOfBirth }}</td>
                                 </tr>
                                 <tr>
+                                    <th scope="row">Gender:</th>
+                                    <td colspan="2">{{ Auth::User()->gender }}</td>
+                                </tr>
+                                <tr>
                                     <th scope="row">Address:</th>
                                     <td colspan="2">{{ Auth::User()->address }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">City:</th>
+                                    <td colspan="2">{{ Auth::User()->city }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Available:</th>
@@ -283,6 +272,25 @@
 
         </div><!--/row-->
     </div>
+@endsection
+@section('style')
+    .activity li{
+    padding: 10px;
+    margin: 0;
+    }
+    .activity li a{
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    color: black;
+    front-style: bold;
+    }
+    .activity li:hover{
+    cursor: pointer;
+    background-color: gray;
+    }
 @endsection
 @section('script')
     <script src="{{ asset('backendAsset/dashboard/js/file-upload.js')}}"></script> {{--file upload--}}
