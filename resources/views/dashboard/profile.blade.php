@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-sm-3"><!--left col-->
                 <div class="text-center">
-                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                    <img src="@if(Auth::User()->avatar == 'default.jpg')http://ssl.gstatic.com/accounts/ui/avatar_2x.png @else {{ asset('uploads/profilePic') }}/{{ Auth::User()->avatar }} @endif" class="avatar img-circle img-thumbnail" alt="avatar">
                     <div id="avatar" style="display: none;">
                     <h6>Upload a different photo...</h6>
                     <form class="form" action="{{ url('/user/profile/update') }}/{{ Auth::User()->id }}" method="post" id="registrationForm" enctype="multipart/form-data">
@@ -140,16 +140,16 @@
                                         <div class="col-5">
                                             <div class="form-group">
                                                 <label for="code"><h4>Country</h4></label>
-                                                <select name="countryCode" class="form-control">
-                                                    <option value="+93">Afghanistan</option>
-                                                    <option value="+213">Algeria</option>
-                                                    <option value="+1-684">American Samoa</option>
-                                                    <option value="+54">Argentina</option>
-                                                    <option value="+61">Australia</option>
-                                                    <option value="+1-242">Bahamas</option>
-                                                    <option value="+973">Bahrain</option>
-                                                    <option value="+880">Bangladesh</option>
-                                                    <option value="+32">Belgium</option>
+                                                <select name="countryCode" id="selected{{ Auth::User()->id }}" class="form-control">
+                                                    <option @if (Auth::User()->countryCode == '+93')selected="selected{{ Auth::User()->id }}" @endif value="+93">Afghanistan</option>
+                                                    <option @if (Auth::User()->countryCode == '+213')selected="selected{{ Auth::User()->id }}" @endif value="+213">Algeria</option>
+                                                    <option @if (Auth::User()->countryCode == '+1-684')selected="selected{{ Auth::User()->id }}" @endif value="+1-684">American Samoa</option>
+                                                    <option @if (Auth::User()->countryCode == '+54')selected="selected{{ Auth::User()->id }}" @endif value="+54">Argentina</option>
+                                                    <option @if (Auth::User()->countryCode == '+61')selected="selected{{ Auth::User()->id }}" @endif value="+61">Australia</option>
+                                                    <option @if (Auth::User()->countryCode == '+1-242')selected="selected{{ Auth::User()->id }}" @endif value="+1-242">Bahamas</option>
+                                                    <option @if (Auth::User()->countryCode == '+973')selected="selected{{ Auth::User()->id }}" @endif value="+973">Bahrain</option>
+                                                    <option @if (Auth::User()->countryCode == '+880')selected="selected{{ Auth::User()->id }}" @endif  value="+880">Bangladesh</option>
+                                                    <option @if (Auth::User()->countryCode == '+32')selected="selected{{ Auth::User()->id }}" @endif value="+32">Belgium</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -178,10 +178,10 @@
                                         <div class="col-7">
                                             <div class="form-group">
                                                 <label for="gender"><h4>Gender</h4></label>
-                                                <select class="form-control" name="gender" id="gender" >
-                                                    <option value="Male">Male</option>
-                                                    <option value="Female">Female</option>
-                                                    <option value="others">Others</option>
+                                                <select class="form-control" name="gender" id="selected{{ Auth::User()->id }}" >
+                                                    <option @if (Auth::User()->gender == 'Male')selected="selected{{ Auth::User()->id }}" @endif value="Male">Male</option>
+                                                    <option @if (Auth::User()->gender == 'Female')selected="selected{{ Auth::User()->id }}" @endif value="Female">Female</option>
+                                                    <option @if (Auth::User()->gender == 'others')selected="selected{{ Auth::User()->id }}" @endif value="others">Others</option>
                                                 </select>
                                             </div>
                                         </div>

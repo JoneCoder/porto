@@ -42,7 +42,7 @@
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                         <div class="nav-profile-img">
-                            <img src="{{ asset('backendAsset/dashboard/images/faces/face1.jpg')}}" alt="image">
+                            <img src="@if(Auth::User()->avatar == 'default.jpg')http://ssl.gstatic.com/accounts/ui/avatar_2x.png @else {{ asset('uploads/profilePic') }}/{{ Auth::User()->avatar }} @endif" alt="image">
                             <span class="availability-status online"></span>
                         </div>
                         <div class="nav-profile-text">
@@ -194,7 +194,7 @@
                 <li class="nav-item nav-profile">
                     <a href="{{ url('/home/profile') }}/{{ Auth::User()->id }}" class="nav-link">
                         <div class="nav-profile-image">
-                            <img src="{{ asset('backendAsset/dashboard/images/faces/face1.jpg')}}" alt="profile">
+                            <img src="@if(Auth::User()->avatar == 'default.jpg')http://ssl.gstatic.com/accounts/ui/avatar_2x.png @else {{ asset('uploads/profilePic') }}/{{ Auth::User()->avatar }} @endif" alt="profile">
                             <span class="login-status online"></span> <!--change to offline or busy as needed-->
                         </div>
                         <div class="nav-profile-text d-flex flex-column">
