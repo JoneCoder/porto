@@ -20,6 +20,7 @@ Auth::routes();
 
 //Update profile
 Route::post('/user/profile/update/{profileId}', 'ProfileController@profileUpdate')->name('updateProfile');
+Route::post('/change/password', 'ProfileController@changePass')->name('changePass');
 
 //Backend routers
 Route::get('/home', 'HomeController@index')->name('home');

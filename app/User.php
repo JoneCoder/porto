@@ -36,4 +36,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function relationToSocialLink(){
+        return $this->hasOne('App\SocialLink', 'socialLinkCode', 'socialLinkCode');
+    }
 }

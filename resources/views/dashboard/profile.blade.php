@@ -35,16 +35,16 @@
                     <li class="list-group-item text-muted"><i class="mdi mdi-home menu-icon"></i>Activity</li>
                     <li class="list-group-item"><a class="nav-link" data-toggle="tab" href="#home" id="acInfo">&gt; Account Information</a></li>
                     <li class="list-group-item"><a class="nav-link" data-toggle="tab" href="#messages" id="edInfo">&gt; Edit Account Information</a></li>
-                    <li class="list-group-item"><a class="nav-link" data-toggle="tab" href="#settings">&gt; Password & Account</a></li>
+                    <li class="list-group-item"><a class="nav-link" data-toggle="tab" href="#settings" id="pcInfo">&gt; Password & Account</a></li>
                 </ul>
 
                 <div class="panel panel-default mt-2">
                     <div class="panel-heading"><strong>Social Media</strong></div>
                     <div class="panel-body">
-                        <button type="button" class="btn btn-social-icon btn-facebook mt-1"><i class="mdi mdi-facebook"></i></button>
-                        <button type="button" class="btn btn-social-icon btn-youtube mt-1"><i class="mdi mdi-youtube-play"></i></button>
-                        <button type="button" class="btn btn-social-icon btn-twitter mt-1"><i class="mdi mdi-twitter"></i></button>
-                        <button type="button" class="btn btn-social-icon btn-linkedin mt-1"><i class="mdi mdi-linkedin"></i></button>
+                        <a href="{{ Auth::User()->relationToSocialLink->facebook }}"><button type="button" class="btn btn-social-icon btn-facebook mt-1"><i class="mdi mdi-facebook"></i></button></a>
+                        <a href="{{ Auth::User()->relationToSocialLink->youtube }}"><button type="button" class="btn btn-social-icon btn-youtube mt-1"><i class="mdi mdi-youtube-play"></i></button></a>
+                        <a href="{{ Auth::User()->relationToSocialLink->twitter }}"><button type="button" class="btn btn-social-icon btn-twitter mt-1"><i class="mdi mdi-twitter"></i></button></a>
+                        <a href="{{ Auth::User()->relationToSocialLink->linkedin }}"><button type="button" class="btn btn-social-icon btn-linkedin mt-1"><i class="mdi mdi-linkedin"></i></button></a>
                     </div>
                 </div>
 
@@ -214,7 +214,7 @@
                                             <div class="row">
                                                 <div class="col-md-4 text-center"><label for="facebook"><h5><i class="text-info mdi mdi-facebook"></i>Facebook</h5></label></div>
                                                 <div class="col-md-8">
-                                                    <input type="url" class="form-control" name="facebook" id="facebook" placeholder="https://facebook.com/" title="enter your facebook url.">
+                                                    <input type="url" class="form-control" name="facebook" id="facebook" value="{{ Auth::User()->relationToSocialLink->facebook }}" placeholder="https://facebook.com/" title="enter your facebook url.">
                                                 </div>
                                             </div>
                                         </div>
@@ -223,7 +223,7 @@
                                             <div class="row">
                                                 <div class="col-md-4 text-center"><label for="youtube"><h5><i class="text-danger mdi mdi-youtube-play"></i>YouTube</h5></label></div>
                                                 <div class="col-md-8">
-                                                    <input type="url" class="form-control" name="youtube" id="youtube" placeholder="https://youtube.com/" title="enter your youtube url.">
+                                                    <input type="url" class="form-control" name="youtube" id="youtube" value="{{ Auth::User()->relationToSocialLink->youtube }}" placeholder="https://youtube.com/" title="enter your youtube url.">
                                                 </div>
                                             </div>
                                         </div>
@@ -232,7 +232,7 @@
                                             <div class="row">
                                                 <div class="col-md-4 text-center"><label for="twitter"><h5><i class="mdi mdi-twitter" style="color: #2caae1;"></i>Twitter</h5></label></div>
                                                 <div class="col-md-8">
-                                                    <input type="url" class="form-control" name="twitter" id="twitter" placeholder="https://twitter.com/" title="enter your twitter url.">
+                                                    <input type="url" class="form-control" name="twitter" id="twitter" value="{{ Auth::User()->relationToSocialLink->twitter }}" placeholder="https://twitter.com/" title="enter your twitter url.">
                                                 </div>
                                             </div>
                                         </div>
@@ -241,7 +241,7 @@
                                             <div class="row">
                                                 <div class="col-md-4 text-center"><label for="linkedin"><h5><i class="mdi mdi-linkedin" style="color: #0198e8;"></i>Linkedin</h5></label></div>
                                                 <div class="col-md-8">
-                                                    <input type="url" class="form-control" name="linkedin" id="linkedin" placeholder="https://linkedin.com/" title="enter your linkedin url.">
+                                                    <input type="url" class="form-control" name="linkedin" id="linkedin" value="{{ Auth::User()->relationToSocialLink->linkedin }}" placeholder="https://linkedin.com/" title="enter your linkedin url.">
                                                 </div>
                                             </div>
                                         </div>
@@ -265,7 +265,66 @@
                     </div><!--/tab-pane-->
                     <div class="tab-pane fade" id="settings">
                         <hr>
+                        <div class="row">
+                            <div class="col-md-12 user-content">
+                                <table class="table">
+                                    <!--password-->
+                                    <form action="{{ url('change/password') }}" method="post">
+                                        @csrf
+                                        <tr class="table-primary">
+                                            <th>Password setting</th>
+                                        </tr>
+                                        <tr class="table-light">
+                                            <td>Current password:</td>
+                                            <td><input type="password" name="currPass">
+                                                <span class="text-danger">
+                                                    Current password does not match!
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr class="table-light">
+                                            <td>New password:</td>
+                                            <td><input type="password" name="newPass">
+                                                <span class="text-danger">
+                                                    This is not new password!
+                                                    Your password must be 8 charter, 1 number, 1 capital letter and 1 small letter.';
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr class="table-light">
+                                            <td>Confirm password:</td>
+                                            <td><input type="password" name="confPass">
+                                            </td>
+                                        </tr>
+                                        <tr class="table-light">
+                                            <td>
+                                                <span class="text-success">
+                                                    Your profile password successfully changed
+                                                </span>
+                                            </td>
+                                            <td><button type="submit">Change password</button></td>
+                                        </tr>
+                                    </form>
 
+                                    <!--Profile-setting-->
+                                    <form action="" method="post">
+                                        @csrf
+                                        <tr class="table-primary">
+                                            <th>Profile setting</th>
+                                        </tr>
+                                        <tr class="table-light">
+                                            <td><input type="checkbox" name="idDisable" value="101"> I want disable this profile.</td>
+                                            <td><button type="submit">Disable</button>
+                                                <span class="text-danger">
+                                                    Do you want disable your profile? Please check out.
+                                                    Profile disable request processing... After 7days delete your profile by admin.
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </form>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div><!--/tab-content-->
             </div><!--/col-9-->
@@ -297,6 +356,10 @@
     <script>
         $(document).ready(function(){
             $("#acInfo").click(function(){
+                $("#avatar").hide();
+                $("#username").show();
+            });
+            $("#pcInfo").click(function(){
                 $("#avatar").hide();
                 $("#username").show();
             });

@@ -7,6 +7,8 @@ use App\User;
 use App\SocialLink;
 use Carbon\Carbon;
 use Image;
+use Hash;
+use Auth;
 
 
 class ProfileController extends Controller
@@ -51,5 +53,24 @@ class ProfileController extends Controller
             ]);
         }
         return back();
+    }
+    public function changePass(Request $request){
+        $currPass = $request->currPass;
+        $newPass = $request->newPass;
+        $authPass = Auth::User()->password;
+        $request->validate([
+            'currPass' => 'required',
+            'newPass' => 'min:8|string|required',
+            'confPass' => 'same:newPass|min:8|string|required',
+        ]);
+        if (Hash::check($currPass, $authPass)){
+            User::find(Auth::id())->update([
+                'password' => decrypt($newPass),
+            ]);
+        }
+        else{
+            return back()->with('passStatus', 'Current Password Does not match!');
+        }
+        return back()->with('status', 'Your profile password successfully changed!');
     }
 }
